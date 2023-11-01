@@ -1,3 +1,4 @@
+```kroki-plantuml
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 ' uncomment the following line and comment the first to use locally
@@ -40,3 +41,4 @@ Lay_D(atm, banking_system)
 Lay_D(atm, customer)
 Lay_U(mail_system, customer)
 @enduml
+```
