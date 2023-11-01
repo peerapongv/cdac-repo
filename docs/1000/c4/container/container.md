@@ -16,6 +16,8 @@
 ' LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
+skinparam padding 10
+
 title Container diagram for Internet Banking System
 
 Person(customer, Customer, "A customer of the bank, with personal bank accounts")
