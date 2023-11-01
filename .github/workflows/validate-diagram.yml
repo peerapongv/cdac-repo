@@ -1,0 +1,18 @@
+name: Call CDAC API to validate diagram
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  save-diagram:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: List files in current directory
+        run: ls -al
+      - name: Call some API
+        run: curl https://dummyjson.com/products/1
