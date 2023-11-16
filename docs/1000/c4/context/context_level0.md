@@ -33,7 +33,7 @@ Rel_R(customer, customer_service, "Asks questions to", "Telephone")
 Rel_D(banking_system, mail_system, "Sends e-mail using")
 Rel_R(atm, mainframe, "Uses")
 Rel_R(banking_system, mainframe, "Uses")
-Rel_U(customer_service, mainframe, "Uses")
+Rel(customer_service, mainframe, "Uses")
 Rel_U(back_office, mainframe, "Uses")
 
 Lay_D(atm, banking_system)
