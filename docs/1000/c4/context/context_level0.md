@@ -26,7 +26,7 @@ Enterprise_Boundary(c0, "Big Bank plc") {
 
 Rel(customer, banking_system, "Uses")
 Rel(customer, atm, "Withdraws cash using")
-Rel_Back(customer, mail_system, "Sends e-mails to")
+Rel(customer, mail_system, "Sends e-mails to")
 
 Rel_R(customer, customer_service, "Asks questions to", "Telephone")
 
