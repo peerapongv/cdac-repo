@@ -1,9 +1,7 @@
-name: Call CDAC API to validate diagram
+name: Call CDAC API to validate diagram (On push)
 
 on:
   push:
-    branches: [main, dev]
-  pull_request:
     branches: [main, dev]
 
 jobs:
@@ -15,4 +13,4 @@ jobs:
       - name: List files in current directory
         run: ls -al
       - name: Call some API
-        run: curl https://dummyjson.com/products/1
+        run: curl https://dummyjson.com/products/2
