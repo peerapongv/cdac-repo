@@ -24,8 +24,8 @@ Enterprise_Boundary(c0, "Big Bank plc") {
     Person_Ext(back_office, "Back Office Staff", "Administration and support staff within the bank.")
 }
 
-Rel_Neighbor(customer, banking_system, "Uses")
-Rel_R(customer, atm, "Withdraws cash using")
+Rel(customer, banking_system, "Uses")
+Rel(customer, atm, "Withdraws cash using")
 Rel_Back(customer, mail_system, "Sends e-mails to")
 
 Rel_R(customer, customer_service, "Asks questions to", "Telephone")
