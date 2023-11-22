@@ -30,7 +30,7 @@ Rel(customer, mail_system, "Sends e-mails to")
 
 Rel_R(customer, customer_service, "Asks questions to", "Telephone")
 
-Rel_D(banking_system, mail_system, "Sends e-mail using")
+Rel(banking_system, mail_system, "Sends e-mail using")
 Rel_R(atm, mainframe, "Uses")
 Rel_R(banking_system, mainframe, "Uses")
 Rel_R(customer_service, mainframe, "Uses")

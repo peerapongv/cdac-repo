@@ -1,23 +1,32 @@
+```kroki-plantuml
 @startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
-!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
-!include FONTAWESOME/mobile.puml
-LAYOUT_WITH_LEGEND()
-LAYOUT_LANDSCAPE()
-AddRelTag("dashed", $lineStyle = DashedLine())
-System(761_FxPub, "761_FxPub", "", "", "" , "")
-System_Ext(257_EAI, "257_EAI", "", "", "" , "")
-System_Ext(21_CASA, "21_CASA", "", "", "" , "")
-System_Ext(30_AAA, "30_AAA", "", "", "" , "")
-System_Ext(100_CCC, "100_CCC", "", "", "" , "")
-System_Ext(1000_DDD, "1000_DDD", "", "", "" , "")
-System_Ext(760_ForeignCASA, "760_ForeignCASA", "", "", "" , "")
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
 
-Rel(761_FxPub, 257_EAI, "Online", "", "", "", "" , "")
-Rel(761_FxPub, 30_AAA, "Online", "", "", "", "" , "")
-Rel(761_FxPub, 100_CCC, "Online", "", "", "", "" , "")
-Rel(761_FxPub, 1000_DDD, "Online", "", "", "", "" , "")
-Rel(257_EAI, 21_CASA, "Online", "", "", "", "" , "")
-Rel(257_EAI, 760_ForeignCASA, "Online", "", "", "", "" , "")
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title System Landscape diagram for Big Bank plc
+
+Person(customer, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.")
+
+Enterprise_Boundary(c0, "Big Bank plc") {
+    System(banking_system, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
+
+    System_Ext(atm, "ATM", "Allows customers to withdraw cash.")
+    System_Ext(mail_system, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+
+    System_Ext(mainframe, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+
+    Person_Ext(customer_service, "Customer Service Staff", "Customer service staff within the bank.")
+    Person_Ext(back_office, "Back Office Staff", "Administration and support staff within the bank.")
+}
+
+Rel(customer, banking_system, "Uses")
+Rel(customer, atm, "Withdraws cash using")
+Rel(customer, mail_system, "Sends e-mails to")
+
 @enduml
+```
