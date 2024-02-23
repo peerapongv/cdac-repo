@@ -1,3 +1,66 @@
+''''''''''''''''''''''''''''''
+' Import C4 PlantUML Resources
+''''''''''''''''''''''''''''''
+
+' The C4_Deployment file contains all necessary components for context, container, component diagrams as well
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+!include https://raw.githubusercontent.com/peerapongv/cdac-repo/main/cdac-definitions.puml
+
+''''''''''''''''''''''''''''''
+' Definitions
+''''''''''''''''''''''''''''''
+
+!define DISABLE_LINK
+
+''''''''''''''''''''''''''''''
+' Layouts
+''''''''''''''''''''''''''''''
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_LANDSCAPE()
+
+
+
+''''''''''''''''''''''''''''''
+' Skinparam
+''''''''''''''''''''''''''''''
+skinparam linetype polyline
+skinparam nodesep 100
+skinparam ranksep 100
+skinparam WrapWidth 200
+skinparam MaxMessageSize 1200
+skinparam defaultTextAlignment left
+
+
+''''''''''''''''''''''''''''''
+' Custom tags
+''''''''''''''''''''''''''''''
+
+' Online (Solid line)
+AddRelTag("online", $lineStyle = SolidLine() $legendText="Online (Dashed line)")
+
+' Batch (Dashed line)
+AddRelTag("batch", $lineStyle = DashedLine(), $legendText="Batch (Dashed line)")
+
+' Direct Impact Interface
+AddRelTag("directImpact", $textColor="green", $lineColor="green", $legendText="Direct Impact")
+
+' Indirect Impact Interface
+AddRelTag("indirectImpact", $textColor="orange", $lineColor="orange", $legendText="Indirect Impact")
+
+' Support Test Interface
+AddRelTag("supportTest", $textColor="blue", $lineColor="blue", $legendText="Support Test")
+
+' Non-impacted Interface
+AddRelTag("nonImpacted", $textColor="black", $lineColor="black", $legendText="Non-impacted")
+
+
+''''''''''''''''''''''''''''''
+' Custom functions
+''''''''''''''''''''''''''''''
+
+' String replace 
 !function $replace($value, $search, $replace)
   !$replaced = ""
   !while %strpos($value, $search) >= 0
@@ -9,6 +72,100 @@
 !endfunction
 
 
+''''''''''''''''''''''''''''''
+' Custom Procedures (C4 PlantUML Entities)
+''''''''''''''''''''''''''''''
+
+' Update all relationship component
+' All techn fields will no longer be automatically formatted as links when wrapped with square brackets
+
 !unquoted procedure Rel($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
 $getRel("-->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_($alias1, $alias2, $label, $direction)
+$getRel($direction, $alias1, $alias2, $label, "", "", "", "", "")
+!endprocedure
+!unquoted procedure Rel_($alias1, $alias2, $label, $techn, $direction)
+$getRel($direction, $alias1, $alias2, $label, $techn, "", "", "", "")
+!endprocedure
+
+!unquoted procedure Rel($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("-->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("<<-->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_Back($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("<<--", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_Neighbor($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel_Neighbor($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("<<->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_Back_Neighbor($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("<<-", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_D($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($down("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure Rel_Down($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($down("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel_D($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($down("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure BiRel_Down($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($down("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_U($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($up("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure Rel_Up($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($up("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel_U($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($up("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure BiRel_Up($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($up("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_L($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($left("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure Rel_Left($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($left("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel_L($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($left("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure BiRel_Left($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($left("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure Rel_R($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($right("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure Rel_Right($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($right("-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+
+!unquoted procedure BiRel_R($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($right("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
+!unquoted procedure BiRel_Right($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel($right("<<-","->>"), $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
 !endprocedure
