@@ -5,7 +5,6 @@
 ' The C4_Deployment file contains all necessary components for context, container, component diagrams as well
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
-!include https://raw.githubusercontent.com/peerapongv/cdac-repo/main/cdac-definitions.puml
 
 ''''''''''''''''''''''''''''''
 ' Definitions
