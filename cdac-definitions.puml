@@ -1,0 +1,14 @@
+!function $replace($value, $search, $replace)
+  !$replaced = ""
+  !while %strpos($value, $search) >= 0
+    !$position = %strpos($value, $search)
+    !$replaced = $replaced + %substr($value, 0, $position) + $replace
+    !$value = %substr($value, $position + %strlen($search))
+  !endwhile
+  !return $replaced + $value
+!endfunction
+
+
+!unquoted procedure Rel($from, $to, $label, $techn="", $descr="", $sprite="", $tags="", $link="")
+$getRel("-->>", $from, $to, $label, $replace($replace($techn, '[', ''), ']', ''), $descr, $sprite, $tags, $link)
+!endprocedure
